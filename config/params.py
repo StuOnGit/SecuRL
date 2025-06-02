@@ -8,10 +8,21 @@ PARAMS = {
     "n_epochs": 10,
     "batch_size": 64,
     "feature_columns": [
-        'orig_pkts', 'resp_pkts', 'orig_bytes', 'resp_bytes',
-        'duration', 'proto', 'service', 'conn_state'
+        "orig_pkts",
+        "resp_pkts",
+        "orig_bytes",
+        "resp_bytes",
+        "duration",
+        "proto",
+        "service",
+        "conn_state",
+        "pktAtsec",
+        "BitRate",
+        "interTime",
+        "avgLenPkt",
     ],
     "label_column": "label_binary",
     "num_timesteps": 10000,
     "test_size": 0.2,
+    "data_dir": "./data",
 }
