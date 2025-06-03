@@ -1,11 +1,11 @@
 # preprocessing/data_loader.py
 
-import pandas as pd
 import os
+import pandas as pd
+import numpy as np
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.compose import ColumnTransformer
 from sklearn.model_selection import train_test_split
-import numpy as np
 
 
 def load_data(data_dir):
@@ -18,7 +18,7 @@ def load_data(data_dir):
                     temp_df = pd.read_csv(full_path, nrows=1)
                     all_files.append(full_path)
                 except Exception as e:
-                    print(f"[⚠️] File non valido: {full_path} ({e})")
+                    print(f"\n[⚠️] File non valido: {full_path} ({e})")
 
     if not all_files:
         raise FileNotFoundError(f"Nessun file CSV valido trovato in '{data_dir}'.")
@@ -79,7 +79,7 @@ def preprocess_data(df, feature_cols, label_col="label_binary"):
     y = df[label_col]
 
     # 🔽 Stampa informazioni sulle feature
-    print("[📊] Dimensione input dopo preprocessing:", X.shape)
+    print("\n[📊] Dimensione input dopo preprocessing:", X.shape)
 
     # 🔽 Mostra quanti encoder ha generato
     # one_hot_encoder = preprocessor.named_transformers_["cat"]

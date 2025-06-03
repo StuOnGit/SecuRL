@@ -16,19 +16,19 @@ def main():
     print("[🔄] Caricamento dati...")
     df = load_data(PARAMS["data_dir"])
 
-    print("[🧮] Preprocessing...")
+    print("\n[🧮] Preprocessing...")
     X_train, X_test, y_train, y_test = preprocess_data(
         df, PARAMS["feature_columns"], PARAMS["label_column"]
     )
     X_train = np.nan_to_num(X_train, nan=0, posinf=0, neginf=0)
 
-    print("[🎮] Creazione ambiente...")
+    print("\n[🎮] Creazione ambiente...")
     env = NetworkEnv(X_train, y_train)
 
     print("🔍 Verifica NaN:", np.isnan(X_train).sum())
     print("🔍 Verifica Infiniti:", np.isinf(X_train).sum())
 
-    print("[🧠] Addestramento PPO...")
+    print("\n[🧠] Addestramento PPO...")
     model = PPO(
         "MlpPolicy",
         env,
