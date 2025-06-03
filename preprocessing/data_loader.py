@@ -42,6 +42,7 @@ def preprocess_data(df, feature_cols, label_col="label_binary"):
     df[label_col] = (
         df[label_col]
         .astype(str)
+        .str.strip()
         .str.lower()
         .map({"true": 1, "1": 1, "false": 0, "0": 0, "duplicate": 1})
     )
