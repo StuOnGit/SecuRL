@@ -18,7 +18,7 @@ def load_data(data_dir):
                     temp_df = pd.read_csv(full_path, nrows=1)
                     all_files.append(full_path)
                 except Exception as e:
-                    print(f"\n[⚠️] File non valido: {full_path} ({e})")
+                    print(f"\n[] File non valido: {full_path} ({e})")
 
     if not all_files:
         raise FileNotFoundError(f"Nessun file CSV valido trovato in '{data_dir}'.")
@@ -78,17 +78,10 @@ def preprocess_data(df, feature_cols, label_col="label_binary"):
     X = np.nan_to_num(X, nan=0, posinf=0, neginf=0)
     y = df[label_col]
 
-    # 🔽 Stampa informazioni sulle feature
-    print("\n[📊] Dimensione input dopo preprocessing:", X.shape)
+    feature_names = preprocessor.get_feature_names_out()
 
-    # 🔽 Mostra quanti encoder ha generato
-    # one_hot_encoder = preprocessor.named_transformers_["cat"]
-    # categories = one_hot_encoder.categories_
-    # for i, cat in enumerate(categorical_features):
-    #     print(f"[🧩] {cat} → {len(categories[i])} categorie")
+    # Stampa informazioni sulle feature
+    print("\n[] Dimensione input dopo preprocessing:", X.shape)
 
-    # feature_names = preprocessor.get_feature_names_out()
-    # print(len(feature_names))
-    # print(feature_names)
-
-    return train_test_split(X, y, test_size=0.2, random_state=42)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    return X_train, X_test, y_train, y_test, feature_names

@@ -17,14 +17,14 @@ from config.params import PARAMS
 
 
 def main():
-    print("\n[🔄] Caricamento dataset...")
+    print("\n[] Caricamento dataset...")
     df = load_data(PARAMS["data_dir"])
 
     print("Label distribution in full dataset:")
     print(Counter(df[PARAMS["label_column"]]))
 
-    print("\n[🧮] Preprocessing...")
-    _ , X_test, y_train, y_test = preprocess_data(
+    print("\n[] Preprocessing...")
+    X_train, X_test, y_train, y_test, _ = preprocess_data(
         df, PARAMS["feature_columns"], PARAMS["label_column"]
     )
 
@@ -37,18 +37,18 @@ def main():
     print(f"Total 1s: {train_counter[1]} + {test_counter[1]} = {train_counter[1] + test_counter[1]}")
     print(f"Total 0s: {train_counter[0]} + {test_counter[0]} = {train_counter[0] + test_counter[0]}")
 
-    print("\n[🧠] Carico modello addestrato...")
+    print("\n[] Carico modello addestrato...")
     try:
-        model = PPO.load("../ppo_model")
+        model = PPO.load("./ppo_model")
     except Exception as e:
-        print(f"\n[❌] Errore nel caricare il modello: {e}")
+        print(f"\n[] Errore nel caricare il modello: {e}")
         return
 
-    print("\n[🧪] Valutazione modello...")
+    print("\n[] Valutazione modello...")
     env = NetworkEnv(X_test, y_test)
     obs = env.reset()
-    print(f"\n[🔍] Primo stato: {obs}")
-    print(f"\n[📊] Dimensione osservazione: {obs.shape}")
+    print(f"\n[] Primo stato: {obs}")
+    print(f"\n[] Dimensione osservazione: {obs.shape}")
 
     predictions = []
     true_labels = []
@@ -61,16 +61,16 @@ def main():
         if done:
             break
 
-    print("\n[📊] METRICHE DI VALUTAZIONE:")
+    print("\n[] METRICHE DI VALUTAZIONE:")
     print(f"Accuracy: {accuracy_score(true_labels, predictions):.4f}")
     print(f"Precision: {precision_score(true_labels, predictions):.4f}")
     print(f"Recall: {recall_score(true_labels, predictions):.4f}")
     print(f"F1 Score: {f1_score(true_labels, predictions):.4f}")
 
-    print("\n[📋] CLASSIFICATION REPORT:")
+    print("\n[] CLASSIFICATION REPORT:")
     print(classification_report(true_labels, predictions, digits=4))
 
-    print("\n[🔢] CONFUSION MATRIX:")
+    print("\n[] CONFUSION MATRIX:")
     cm = confusion_matrix(true_labels, predictions)
     print(cm)
 

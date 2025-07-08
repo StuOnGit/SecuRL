@@ -158,3 +158,6 @@ Desktop.ini
 *.png
 *.csv
 *.zip
+/.history
+/latex/.history
+/latex

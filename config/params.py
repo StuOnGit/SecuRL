@@ -1,4 +1,9 @@
 # config/params.py
+import os
+
+# Calcola il percorso assoluto della directory radice del progetto
+# basandosi sulla posizione di questo file (config/params.py)
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 PARAMS = {
     "learning_rate": 3e-4,
@@ -24,5 +29,5 @@ PARAMS = {
     "label_column": "label_binary",
     "num_timesteps": 10000,
     "test_size": 0.2,
-    "data_dir": "./data",
+    "data_dir": os.path.join(PROJECT_ROOT, "data"),
 }
